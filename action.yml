@@ -76,8 +76,8 @@ runs:
       env:
         GITHUB_EVENT_PULL_REQUEST_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         WALDO_CLI_BIN: /usr/local/bin
-        WALDO_WRAPPER_NAME_OVERRIDE: 'Custom'
-        WALDO_WRAPPER_VERSION_OVERRIDE: '1.0.0'
+        WALDO_WRAPPER_NAME_OVERRIDE: 'Waldo GitHub Action'
+        WALDO_WRAPPER_VERSION_OVERRIDE: '1.0.1'
       shell: bash
 branding:
   icon: upload-cloud
