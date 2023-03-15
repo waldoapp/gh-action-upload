@@ -61,11 +61,11 @@ runs:
         fi
 
         if [[ -n $git_commit ]]; then
-            extra_options="${extra_options} --git_commit \"${git_commit}\""
+            extra_options="${extra_options} --git_commit ${git_commit}"
         fi
 
         if [[ -n $git_branch ]]; then
-            extra_options="${extra_options} --git_branch \"${git_branch}\""
+            extra_options="${extra_options} --git_branch ${git_branch}"
         fi
 
         if [[ $verbose == "true" ]]; then
