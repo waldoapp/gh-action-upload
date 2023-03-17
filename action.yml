@@ -57,7 +57,7 @@ runs:
         extra_options=""
 
         if [[ -n $variant_name ]]; then
-            extra_options="${extra_options} --variant_name \"${variant_name}\""
+            extra_options="${extra_options} --variant_name ${variant_name}"
         fi
 
         if [[ -n $git_commit ]]; then
@@ -77,7 +77,7 @@ runs:
         GITHUB_EVENT_PULL_REQUEST_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         WALDO_CLI_BIN: /usr/local/bin
         WALDO_WRAPPER_NAME_OVERRIDE: 'Waldo GitHub Action'
-        WALDO_WRAPPER_VERSION_OVERRIDE: '1.0.1'
+        WALDO_WRAPPER_VERSION_OVERRIDE: 1.0.2
       shell: bash
 branding:
   icon: upload-cloud
