@@ -10,7 +10,7 @@ workflow.
 Each application registered in Waldo is associated with a unique upload token.
 You can find the upload token for your app by going to the Documentation screen
 for your app in [Waldo](https://app.waldo.io/). This token _should_ be
-specified as a _secret_ environment variable. 
+specified as a _secret_ environment variable.
 
 ## Inputs
 
@@ -48,29 +48,34 @@ specified as a _secret_ environment variable.
   If this mode is enabled, additional debug information is printed. (Default:
   `false`.)
 
+## Outputs
+
+- `build_id`
+
+  A unique identifier for the build that you just uploaded. Empty if the upload
+  failed.
+
 ## Usage
 
 ```yaml
 steps:
-  - name: Checkout
-    uses: actions/checkout@v2
-    with:
-      fetch-depth: 0
-  - name: Build with Xcode
+  - name: Checkout repo
+    uses: actions/checkout@v4
+  - name: Build app with Xcode
     run: |
       DERIVED_DATA_PATH=/tmp/YourApp-$(uuidgen)
 
-      xcodebuild -project YourApp.xcodeproj                     \
-                 -scheme YourApp                                \
-                 -configuration Release                         \
-                 -destination 'generic/platform=iOS Simulator'  \
-                 -derivedDataPath "$DERIVED_DATA_PATH"          \
-                 clean build
+      xcodebuild -project YourApp.xcodeproj             \
+                 -scheme YourApp                        \
+                 -configuration Release                 \
+                 -sdk iphonesimulator                   \
+                 -derivedDataPath "$DERIVED_DATA_PATH"  \
+                 build
 
-      echo "APP_DIR_PATH=${DERIVED_DATA_PATH}/Build/Products/Release-iphonesimulator/YourApp.app" >>$GITHUB_ENV
-  - name: Upload build to Waldo
+      echo "APP_DIR_PATH=${DERIVED_DATA_PATH}/Build/Products/Release-iphonesimulator/YourApp.app" >> "$GITHUB_ENV"
+  - name: Upload resulting build to Waldo
     uses: waldoapp/gh-action-upload@v1
     with:
       build_path: ${{ env.APP_DIR_PATH }}
-      upload_token: ${{ secrets.WALDO_UPLOAD_TOKEN }}
+      upload_token: ${{ secrets.WALDO_CI_TOKEN }}
 ```
