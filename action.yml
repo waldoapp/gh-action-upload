@@ -39,6 +39,12 @@ inputs:
       If this mode is enabled, additional debug information is printed.
     required: false
     default: false
+outputs:
+  build_id:
+    description: >
+      A unique identifier for the build that you just uploaded. Empty if the
+      upload failed.
+    value: ${{ fromJSON(steps.metadata.outputs.json).appVersionID }}
 runs:
   using: composite
   steps:
@@ -72,12 +78,18 @@ runs:
             extra_options="${extra_options} --verbose"
         fi
 
-        ${WALDO_CLI_BIN}/waldo upload "$build_path" --upload_token "$upload_token" ${extra_options}
+        ${WALDO_CLI_BIN}/waldo upload "$build_path" --upload_token "$upload_token" ${extra_options} | tee "$TMP_OUT"
       env:
         GITHUB_EVENT_PULL_REQUEST_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        TMP_OUT: ${{ runner.temp }}/upload.out
         WALDO_CLI_BIN: /usr/local/bin
         WALDO_WRAPPER_NAME_OVERRIDE: 'Waldo GitHub Action'
-        WALDO_WRAPPER_VERSION_OVERRIDE: 1.0.2
+        WALDO_WRAPPER_VERSION_OVERRIDE: 2.0.0
+      shell: bash
+    - run: echo "json=$(tail -n 1 "$TMP_OUT")" >> "$GITHUB_OUTPUT"
+      id: metadata
+      env:
+        TMP_OUT: ${{ runner.temp }}/upload.out
       shell: bash
 branding:
   icon: upload-cloud
