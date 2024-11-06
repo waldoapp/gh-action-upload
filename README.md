@@ -46,7 +46,12 @@ specified as a _secret_ environment variable.
 - `is_debug_mode`
 
   If this mode is enabled, additional debug information is printed. (Default:
-  `false`.)
+  `false`)
+
+- `bin_path`
+
+  The path to install Waldo CLI into for internal use. (Default:
+  `/usr/local/bin`)
 
 ## Outputs
 
@@ -74,7 +79,7 @@ steps:
 
       echo "APP_DIR_PATH=${DERIVED_DATA_PATH}/Build/Products/Release-iphonesimulator/YourApp.app" >> "$GITHUB_ENV"
   - name: Upload resulting build to Waldo
-    uses: waldoapp/gh-action-upload@v1
+    uses: waldoapp/gh-action-upload@v3
     with:
       build_path: ${{ env.APP_DIR_PATH }}
       upload_token: ${{ secrets.WALDO_CI_TOKEN }}

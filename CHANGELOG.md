@@ -7,6 +7,12 @@ This project adheres to [Semantic Versioning].
 
 ## [Unreleased]
 
+## [3.0.0] - 2024-11-06
+
+### Added
+
+- Add support for new `bin_path` input.
+
 ## [2.0.0] - 2024-05-01
 
 ### Added
@@ -30,7 +36,8 @@ This project adheres to [Semantic Versioning].
 
 Initial public release.
 
-[Unreleased]:   https://github.com/waldoapp/gh-action-upload/compare/v2.0.0...HEAD
+[Unreleased]:   https://github.com/waldoapp/gh-action-upload/compare/v3.0.0...HEAD
+[3.0.0]:        https://github.com/waldoapp/gh-action-upload/compare/v2.0.0...v3.0.0
 [2.0.0]:        https://github.com/waldoapp/gh-action-upload/compare/v1.0.2...v2.0.0
 [1.0.2]:        https://github.com/waldoapp/gh-action-upload/compare/v1.0.1...v1.0.2
 [1.0.1]:        https://github.com/waldoapp/gh-action-upload/compare/v1.0.0...v1.0.1

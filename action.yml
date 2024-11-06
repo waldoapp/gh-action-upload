@@ -39,6 +39,11 @@ inputs:
       If this mode is enabled, additional debug information is printed.
     required: false
     default: false
+  bin_path:
+    description: >
+      The path to install Waldo CLI into for internal use.
+    required: false
+    default: /usr/local/bin
 outputs:
   build_id:
     description: >
@@ -82,9 +87,9 @@ runs:
       env:
         GITHUB_EVENT_PULL_REQUEST_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         TMP_OUT: ${{ runner.temp }}/upload.out
-        WALDO_CLI_BIN: /usr/local/bin
+        WALDO_CLI_BIN: ${{ inputs.bin_path }}
         WALDO_WRAPPER_NAME_OVERRIDE: 'Waldo GitHub Action'
-        WALDO_WRAPPER_VERSION_OVERRIDE: 2.0.0
+        WALDO_WRAPPER_VERSION_OVERRIDE: 3.0.0
       shell: bash
     - run: echo "json=$(tail -n 1 "$TMP_OUT")" >> "$GITHUB_OUTPUT"
       id: metadata
